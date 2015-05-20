@@ -5,7 +5,7 @@ python:
   - "3.3"
   - "3.4"
 install:
-  - "pip install -U pytest pytest-cov coveralls"
+  - "pip install -U pytest pytest-cov coveralls fauxfactory"
 script: "py.test -v --cov pytest_fauxfactory"
 after_success:
     - coveralls
