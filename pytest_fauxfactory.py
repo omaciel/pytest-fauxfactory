@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Provides FauxFactory helper methods."""
 import fauxfactory
 
 STRING_TYPES = (
@@ -14,7 +15,7 @@ STRING_TYPES = (
 
 
 def gen_string(items=None, str_type=None, *args, **kwargs):
-    '''Generate a new string type.'''
+    """Generate a new string type."""
     item = 0
 
     if items is None:
