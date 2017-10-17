@@ -1,15 +1,11 @@
-#!/usr/bin/env python2
 # -*- encoding: utf-8 -*-
-#   Author(s): Milan Falesnik   <milan@falesnik.net>
-#                               <mfalesni@redhat.com>
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 from setuptools import setup
 
 setup(
     name="pytest-fauxfactory",
     version="1.0",
-    author="Milan Falešník",
-    author_email="milan@falesnik.net",
+    author="Og Maciel",
+    author_email="omaciel@ogmaciel.com",
     description="Integration of fauxfactory into pytest.",
     license="GPLv3",
     keywords="pytest",

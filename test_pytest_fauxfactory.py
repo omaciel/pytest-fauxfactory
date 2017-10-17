@@ -2,9 +2,13 @@
 import pytest
 
 
-def test_namespace_presence():
-    pytest.faux
+@pytest.mark.gen_string()
+def test_gen_alpha_string_with_no_arguments(value):
+    '''Passing no arguments should return a random string type.'''
+    assert len(value) > 0
 
 
-def test_function_works():
-    assert len(pytest.faux.gen_alphanumeric()) > 0
+@pytest.mark.gen_string(4, 'alpha', length=12)
+def test_gen_alpha_string_with_length(value):
+    '''Generate an `alpha` string of length 12.'''
+    assert len(value) == 12
