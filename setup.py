@@ -24,7 +24,7 @@ setup(
             'wheel',
         ]
     },
-    entry_points={'pytest11': ['pytest_fauxfactory = pytest_fauxfactory']},
+    entry_points={'pytest11': ['fauxfactory = pytest_fauxfactory']},
     classifiers=[
         'Topic :: Utilities',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',

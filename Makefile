@@ -43,7 +43,7 @@ test:
 		py.test -v
 
 test-coverage:
-		py.test --verbose --cov-report term-missing --cov=conftest --cov=pytest_fauxfactory
+		py.test --verbose --cov-report term-missing --cov=pytest_fauxfactory
 
 .PHONY: all docs-clean docs-html install install-dev lint package \
 	package-clean package-upload test test-coverage
