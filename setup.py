@@ -17,7 +17,7 @@ setup(
         'dev': [
             'coveralls',
             'flake8',
-            'pytest',
+            'pytest>=3.2',
             'pytest-cov',
             'pytest-xdist',
             'twine',
