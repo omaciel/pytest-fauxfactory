@@ -15,9 +15,8 @@ setup(
     install_requires=['pytest>=3.2', 'fauxfactory'],
     extras_require={
         'dev': [
-            'coveralls',
+            'coverage',
             'flake8',
-            'pytest-cov',
             'pytest-xdist',
             'twine',
             'wheel',

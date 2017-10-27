@@ -40,10 +40,10 @@ package-upload: package
 		twine upload dist/*
 
 test:
-		py.test -v
+		coverage run --source pytest_fauxfactory -m py.test -v
 
-test-coverage:
-		py.test --verbose --cov-report term-missing --cov=pytest_fauxfactory
+test-coverage: test
+		coverage report -m
 
 .PHONY: all docs-clean docs-html install install-dev lint package \
 	package-clean package-upload test test-coverage
