@@ -62,6 +62,20 @@ def test_mark_incorrect_argument(testdir):
     assert result.ret == 2
 
 
+def test_mark_invalid_integer(testdir):
+    """Check that first argument to mark is valid integer."""
+    testdir.makepyfile("""
+        import pytest
+        @pytest.mark.gen_string(0)
+        def test_something(value):
+            assert value
+    """)
+    result = testdir.runpytest()
+    result.assert_outcomes(error=1)
+    assert 'Mark expected an integer greater than 0' in result.stdout.str()
+    assert result.ret == 2
+
+
 @pytest.mark.gen_string()
 def test_gen_alpha_string_with_no_arguments(value):
     """Passing no arguments should return a random string type."""
