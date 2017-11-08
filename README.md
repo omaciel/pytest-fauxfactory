@@ -9,10 +9,10 @@
 
 Now you pass random data to your tests using this **Pytest** plugin for [FauxFactory](https://github.com/omaciel/fauxfactory).
 
-The easiest way to use it is to decorate your test with the `gen_string` mark and write a test that expects a `value` argument:
+The easiest way to use it is to decorate your test with the `faux_string` mark and write a test that expects a `value` argument:
 
 ```python
-@pytest.mark.gen_string()
+@pytest.mark.faux_string()
 def test_generate_alpha_strings(value):
     assert value
 ```
@@ -26,7 +26,7 @@ test_generate_alpha_strings[:<;--{#+,&] PASSED
 Suppose you want to generate **4** random strings (identified as **value**) for a test:
 
 ```python
-@pytest.mark.gen_string(4, 'alpha')
+@pytest.mark.faux_string(4, 'alpha')
 def test_generate_alpha_strings(value):
     assert value.isalpha()
 ```
@@ -43,7 +43,7 @@ test_generate_alpha_strings[eqHxEFneSKNC] PASSED
 Now, suppose you also want to make sure that all strings have exactly 43 characters:
 
 ```python
-@pytest.mark.gen_string(4, 'alpha', length=43)
+@pytest.mark.faux_string(4, 'alpha', length=43)
 def test_generate_alpha_strings(value):
     assert len(value) == 43
 ```
@@ -51,7 +51,7 @@ def test_generate_alpha_strings(value):
 You can also get random types of strings by excluding the second argument:
 
 ```python
-@pytest.mark.gen_string(4)
+@pytest.mark.faux_string(4)
 def test_generate_alpha_strings(value):
     assert len(value) > 0
 ```

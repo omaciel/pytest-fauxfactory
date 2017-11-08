@@ -15,7 +15,7 @@ STRING_TYPES = (
 )
 
 
-def gen_string(items=None, str_type=None, *args, **kwargs):
+def faux_string(items=None, str_type=None, *args, **kwargs):
     """Generate a new string type."""
     item = 0
 
@@ -30,10 +30,10 @@ def gen_string(items=None, str_type=None, *args, **kwargs):
 
 
 def pytest_generate_tests(metafunc):
-    """Parametrize tests using `gen_string` mark."""
-    if hasattr(metafunc.function, 'gen_string'):
-        # We should have at least the first 2 arguments to gen_string
-        args = metafunc.function.gen_string.args
+    """Parametrize tests using `faux_string` mark."""
+    if hasattr(metafunc.function, 'faux_string'):
+        # We should have at least the first 2 arguments to faux_string
+        args = metafunc.function.faux_string.args
         if len(args) == 0:
             args = (1, None)
         elif len(args) == 1:
@@ -47,6 +47,6 @@ def pytest_generate_tests(metafunc):
             raise pytest.UsageError(
                 'Mark expected an integer greater than 0, got {}'.format(
                     items))
-        kwargs = metafunc.function.gen_string.kwargs
-        data = gen_string(items, str_type, *args[2:], **kwargs)
+        kwargs = metafunc.function.faux_string.kwargs
+        data = faux_string(items, str_type, *args[2:], **kwargs)
         metafunc.parametrize('value', data)
