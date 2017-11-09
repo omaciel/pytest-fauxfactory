@@ -15,6 +15,14 @@ STRING_TYPES = (
 )
 
 
+def faux_callable(items, callable_func, *args, **kwargs):
+    """Generate new values from callable object."""
+    if items is None:
+        items = 1
+    for _ in range(items):
+        yield callable_func(*args, **kwargs)
+
+
 def faux_string(items=None, str_type=None, *args, **kwargs):
     """Generate a new string type."""
     item = 0
@@ -29,28 +37,20 @@ def faux_string(items=None, str_type=None, *args, **kwargs):
         item += 1
 
 
-def faux_callable(items, callable_func, *args, **kwargs):
-    """Generate new values from callable function."""
-    if items is None:
-        items = 1
-    for _ in range(items):
-        yield callable_func(*args, **kwargs)
-
-
 def _pytest_faux_callable_mark_handler(metafunc):
-    """"pytest faux callable mark handler"""
-    faux_callable_mark = metafunc.function.faux_callable
-    args = faux_callable_mark.args
-    kwargs = faux_callable_mark.kwargs
+    """"pytest faux_callable mark handler"""
+    args = metafunc.function.faux_callable.args
+    kwargs = metafunc.function.faux_callable.kwargs
+
     usage_message = (
         'usage: faux_callable(items, callable_function, *args, **kwargs)'
     )
+
     if len(args) < 2:
         raise pytest.UsageError(
-            'Missing arguments, {0} '
-            'usage: faux_callable(items, callable_function, *args, **kwargs)'
-            .format(usage_message)
+            'Missing arguments: {0}'.format(usage_message)
         )
+
     items, callable_function = args[0:2]
     if not isinstance(items, int):
         raise pytest.UsageError(
@@ -68,28 +68,33 @@ def _pytest_faux_callable_mark_handler(metafunc):
     return faux_callable(items, callable_function, *args[2:], **kwargs)
 
 
+def _pytest_faux_string_mark_handler(metafunc):
+    """"pytest faux_string mark handler"""
+    # We should have at least the first 2 arguments to faux_string
+    args = metafunc.function.faux_string.args
+    if len(args) == 0:
+        args = (1, None)
+    elif len(args) == 1:
+        args = (args[0], None)
+    items, str_type = args[0:2]
+    if not isinstance(items, int):
+        raise pytest.UsageError(
+            'Mark expected an integer, got a {}: {}'.format(
+                type(items), items))
+    if items < 1:
+        raise pytest.UsageError(
+            'Mark expected an integer greater than 0, got {}'.format(
+                items))
+    kwargs = metafunc.function.faux_string.kwargs
+
+    return faux_string(items, str_type, *args[2:], **kwargs)
+
+
 def pytest_generate_tests(metafunc):
     """Parametrize tests using `faux_string` `faux_callable` marks."""
     data = None
     if hasattr(metafunc.function, 'faux_string'):
-        # We should have at least the first 2 arguments to faux_string
-        args = metafunc.function.faux_string.args
-        if len(args) == 0:
-            args = (1, None)
-        elif len(args) == 1:
-            args = (args[0], None)
-        items, str_type = args[0:2]
-        if not isinstance(items, int):
-            raise pytest.UsageError(
-                'Mark expected an integer, got a {}: {}'.format(
-                    type(items), items))
-        if items < 1:
-            raise pytest.UsageError(
-                'Mark expected an integer greater than 0, got {}'.format(
-                    items))
-        kwargs = metafunc.function.faux_string.kwargs
-        data = faux_string(items, str_type, *args[2:], **kwargs)
-
+        data = _pytest_faux_string_mark_handler(metafunc)
     elif hasattr(metafunc.function, 'faux_callable'):
         data = _pytest_faux_callable_mark_handler(metafunc)
 
