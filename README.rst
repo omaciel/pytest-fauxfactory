@@ -168,8 +168,8 @@ This will generate 5 new tests
     tests/test_pytest_fauxfactory.py::test_generate_person[value2] PASSED
 
 Now instead of using a callable function, we want to generate tests with values
-of any types from a generator function or generator expression,
-for this purpose we use the "faux_generator" mark:
+of any types from a generator function or generator expression.
+For this purpose we can use the "faux_generator" mark:
 
 
 .. code-block:: python
@@ -182,7 +182,7 @@ for this purpose we use the "faux_generator" mark:
 
     @pytest.mark.faux_generator(alpha_strings_generator(items=3, length=12))
     def test_generator_alpha_strings(value):
-        """Test function generator with kwargs"""
+        """Test function generator with kwargs."""
         assert len(value) == 12
 
 This will generate 3 new tests
@@ -202,7 +202,7 @@ We can also use a generator expression:
 
     @pytest.mark.faux_generator(int_val for int_val in list_of_integers)
     def test_generator_expression(value):
-        """Test generator expression"""
+        """Test generator expression."""
         assert isinstance(value, int)
         assert value >= 0
 
@@ -216,7 +216,7 @@ This will generate 4 tests
     tests/test_pytest_fauxfactory.py::test_generator_expression[5753372709616898246] PASSED
 
 
-of cause the returned values can be of any type:
+Of course the returned values can be of any type:
 
 
 .. code-block:: python
@@ -230,7 +230,7 @@ of cause the returned values can be of any type:
 
     @pytest.mark.faux_generator(foo_generator())
     def test_generator_foo_generator(value):
-        """Test diffrent types values"""
+        """Test diffrent type values."""
         if isinstance(value, list):
             assert value == [1, 2, 3]
         else:
@@ -244,7 +244,7 @@ This will generate 2 tests
     tests/test_pytest_fauxfactory.py::test_generator_foo_generator[foo] PASSED
     tests/test_pytest_fauxfactory.py::test_generator_foo_generator[value1] PASSED
 
-we can also combine all the above generators:
+We can also combine all the above generators:
 
 .. code-block:: python
 
@@ -254,7 +254,7 @@ we can also combine all the above generators:
         foo_generator()
     )
     def test_generator_combined(value):
-        """Test combined generators"""
+        """Test combined generators."""
         if isinstance(value, list):
             assert value == [1, 2, 3]
         elif isinstance(value, int):

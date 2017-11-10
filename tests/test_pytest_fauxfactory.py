@@ -337,7 +337,7 @@ def test_generator_mark_with_incorrect_argument_type(testdir):
 
 
 def test_generator_mark_number_of_tests_generated(testdir):
-    """check that the number of tests generated is correct."""
+    """Check that the number of tests generated is correct."""
     testdir.makepyfile("""
         import fauxfactory
         import pytest
@@ -354,8 +354,8 @@ def test_generator_mark_number_of_tests_generated(testdir):
 
 
 def test_generator_mark_combined_gens_number_of_tests_generated(testdir):
-    """check that using combined generators, generates the correct number of
-     tests."""
+    """Check that using combined generators generates the correct number of
+    tests."""
     testdir.makepyfile("""
         import fauxfactory
         import pytest
@@ -382,7 +382,7 @@ def alpha_strings_generator(items=1, length=10):
 
 @pytest.mark.faux_generator(alpha_strings_generator(items=3, length=12))
 def test_generator_alpha_strings(value):
-    """Test function generator with kwargs"""
+    """Test function generator with kwargs."""
     assert len(value) == 12
 
 
@@ -391,7 +391,7 @@ list_of_integers = [fauxfactory.gen_integer(min_value=0) for _ in range(4)]
 
 @pytest.mark.faux_generator(int_val for int_val in list_of_integers)
 def test_generator_expression(value):
-    """Test generator expression"""
+    """Test generator expression."""
     assert isinstance(value, int)
     assert value >= 0
 
@@ -405,7 +405,7 @@ def foo_generator():
 
 @pytest.mark.faux_generator(foo_generator())
 def test_generator_foo_generator(value):
-    """Test diffrent types values"""
+    """Test diffrent type values."""
     if isinstance(value, list):
         assert value == [1, 2, 3]
     else:
@@ -418,7 +418,7 @@ def test_generator_foo_generator(value):
     foo_generator()
 )
 def test_generator_combined(value):
-    """Test combined generators"""
+    """Test combined generators."""
     if isinstance(value, list):
         assert value == [1, 2, 3]
     elif isinstance(value, int):

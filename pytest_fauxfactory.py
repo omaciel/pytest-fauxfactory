@@ -77,7 +77,7 @@ def _pytest_faux_callable_mark_handler(metafunc):
 
 
 def _pytest_faux_generator_mark_handler(metafunc):
-    """"pytest faux generator mark handler"""
+    """"pytest faux_generator mark handler."""
     args = metafunc.function.faux_generator.args
     usage_message = 'usage: faux_generator(generator)'
 
