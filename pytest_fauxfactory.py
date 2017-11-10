@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 """Provides FauxFactory helper methods."""
+from inspect import isgenerator, isgeneratorfunction
+from itertools import chain
+
 import fauxfactory
 import pytest
 
@@ -21,6 +24,11 @@ def faux_callable(items, callable_func, *args, **kwargs):
         items = 1
     for _ in range(items):
         yield callable_func(*args, **kwargs)
+
+
+def faux_generator(*args):
+    """Generate values from generators passed as arguments."""
+    return chain.from_iterable(args)
 
 
 def faux_string(items=None, str_type=None, *args, **kwargs):
@@ -68,6 +76,25 @@ def _pytest_faux_callable_mark_handler(metafunc):
     return faux_callable(items, callable_function, *args[2:], **kwargs)
 
 
+def _pytest_faux_generator_mark_handler(metafunc):
+    """"pytest faux generator mark handler"""
+    args = metafunc.function.faux_generator.args
+    usage_message = 'usage: faux_generator(generator)'
+
+    if len(args) == 0:
+        raise pytest.UsageError(
+            'Missing arguments, {0}'.format(usage_message)
+        )
+    for index, arg in enumerate(args):
+        if not isgenerator(arg):
+            raise pytest.UsageError(
+                'Argument with index {0} is not a generator, {1}'
+                .format(index, usage_message)
+            )
+
+    return faux_generator(*args)
+
+
 def _pytest_faux_string_mark_handler(metafunc):
     """"pytest faux_string mark handler"""
     # We should have at least the first 2 arguments to faux_string
@@ -97,6 +124,8 @@ def pytest_generate_tests(metafunc):
         data = _pytest_faux_string_mark_handler(metafunc)
     elif hasattr(metafunc.function, 'faux_callable'):
         data = _pytest_faux_callable_mark_handler(metafunc)
+    elif hasattr(metafunc.function, 'faux_generator'):
+        data = _pytest_faux_generator_mark_handler(metafunc)
 
     if data:
         metafunc.parametrize('value', data)
