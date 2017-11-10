@@ -31,12 +31,10 @@ def faux_generator(*args):
     return chain.from_iterable(args)
 
 
-def faux_string(items=None, str_type=None, *args, **kwargs):
+def faux_string(items, str_type=None, *args, **kwargs):
     """Generate a new string type."""
     item = 0
 
-    if items is None:
-        items = 1
     if str_type is None:
         str_type = fauxfactory.gen_choice(STRING_TYPES)
 
@@ -102,12 +100,17 @@ def _pytest_faux_string_mark_handler(metafunc):
     if len(args) == 0:
         args = (1, None)
     elif len(args) == 1:
-        args = (args[0], None)
+        if isinstance(args[0], int):
+            args = (args[0], None)
+        elif isinstance(args[0], str):
+            if args[0] in STRING_TYPES:
+                args = (1, args[0])
+            else:
+                raise pytest.UsageError(
+                    'String type {} is not supported.'.format(args[0])
+                )
     items, str_type = args[0:2]
-    if not isinstance(items, int):
-        raise pytest.UsageError(
-            'Mark expected an integer, got a {}: {}'.format(
-                type(items), items))
+
     if items < 1:
         raise pytest.UsageError(
             'Mark expected an integer greater than 0, got {}'.format(

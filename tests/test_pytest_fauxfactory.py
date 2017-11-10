@@ -49,6 +49,33 @@ def test_mark_incorrect_value(testdir):
     assert result.ret == 2
 
 
+def test_mark_str_type_argument(testdir):
+    """Check that passing only str_type argument works."""
+    testdir.makepyfile("""
+        import pytest
+        @pytest.mark.faux_string('alpha')
+        def test_something(value):
+            assert value
+    """)
+    result = testdir.runpytest()
+    result.assert_outcomes(passed=1)
+    assert result.ret == 0
+
+
+def test_mark_incorrect_str_type_argument(testdir):
+    """Check that passing incorrect str_type argument raises error."""
+    testdir.makepyfile("""
+        import pytest
+        @pytest.mark.faux_string('alphabet')
+        def test_something(value):
+            assert value
+    """)
+    result = testdir.runpytest()
+    result.assert_outcomes(error=1)
+    assert 'String type alphabet is not supported' in result.stdout.str()
+    assert result.ret == 2
+
+
 def test_mark_incorrect_argument(testdir):
     """Check that first argument to mark is numeric."""
     testdir.makepyfile("""
@@ -59,7 +86,7 @@ def test_mark_incorrect_argument(testdir):
     """)
     result = testdir.runpytest()
     result.assert_outcomes(error=1)
-    assert 'Mark expected an integer' in result.stdout.str()
+    assert 'String type 1 is not supported' in result.stdout.str()
     assert result.ret == 2
 
 
