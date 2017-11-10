@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Provides FauxFactory helper methods."""
-from inspect import isgenerator, isgeneratorfunction
+from inspect import isgenerator
 from itertools import chain
 
 import fauxfactory
@@ -118,7 +118,8 @@ def _pytest_faux_string_mark_handler(metafunc):
 
 
 def pytest_generate_tests(metafunc):
-    """Parametrize tests using `faux_string` `faux_callable` marks."""
+    """Parametrize tests using `faux_string` `faux_callable` 'faux_generator'
+    marks."""
     data = None
     if hasattr(metafunc.function, 'faux_string'):
         data = _pytest_faux_string_mark_handler(metafunc)
