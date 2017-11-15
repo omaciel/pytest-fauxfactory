@@ -4,8 +4,8 @@ from inspect import isgenerator
 
 import pytest
 
-from constants import STRING_TYPES
-from marks import faux_callable, faux_generator, faux_string
+from pytest_fauxfactory.constants import STRING_TYPES
+from pytest_fauxfactory.marks import faux_callable, faux_generator, faux_string
 
 
 def callable_mark_handler(args, kwargs):

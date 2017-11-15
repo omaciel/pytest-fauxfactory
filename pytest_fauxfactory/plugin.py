@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Analyse pytest-fauxfactory marks and passes arguments and keywords to
 pytest's parametrize method."""
-from handlers import MARK_HANDLERS
+from pytest_fauxfactory.handlers import MARK_HANDLERS
 
-from helpers import (
+from pytest_fauxfactory.helpers import (
     extract_arguments,
     extract_keyword_arguments,
     get_mark_function,

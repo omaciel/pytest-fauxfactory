@@ -4,7 +4,7 @@ from itertools import chain
 
 import fauxfactory
 
-from constants import STRING_TYPES
+from pytest_fauxfactory.constants import STRING_TYPES
 
 
 def faux_callable(items, callable_func, *args, **kwargs):

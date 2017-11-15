@@ -11,7 +11,7 @@ setup(
     license='GPLv3',
     keywords='pytest',
     url='https://github.com/omaciel/pytest-fauxfactory',
-    py_modules=['pytest_fauxfactory'],
+    packages=['pytest_fauxfactory'],
     install_requires=['pytest>=3.2', 'fauxfactory'],
     extras_require={
         'dev': [
@@ -22,7 +22,7 @@ setup(
             'wheel',
         ]
     },
-    entry_points={'pytest11': ['fauxfactory = pytest_fauxfactory']},
+    entry_points={'pytest11': ['fauxfactory = pytest_fauxfactory.plugin']},
     classifiers=[
         'Topic :: Utilities',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',

@@ -3,6 +3,8 @@
 import fauxfactory
 import pytest
 
+from pytest_fauxfactory.marks import faux_callable
+
 
 def is_numeric(value):
     """Check if value is numeric."""
@@ -131,6 +133,16 @@ def test_gen_alpha_string_with_length(value):
 def test_gen_alpha_string_with_validator(value):
     """Call `faux_string` with validator that returns default of `1`."""
     assert value == '1'
+
+
+def test_faux_callable_with_none_items():
+    """Test that None items return always one iteration"""
+    def simple_callable():
+        # simple callable that return True
+        return True
+    values = [value for value in faux_callable(None, simple_callable)]
+    assert len(values) == 1
+    assert values[0] is True
 
 
 def test_callable_mark_without_arguments(testdir):
