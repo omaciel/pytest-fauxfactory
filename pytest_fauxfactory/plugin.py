@@ -11,12 +11,9 @@ def pytest_generate_tests(metafunc):
     marks."""
     func = get_mark_function(metafunc)
     if func:
-        # import pdb; pdb.set_trace()
         args = func.args
         kwargs = func.kwargs
         argnames = kwargs.pop('argnames', 'value')
-        # if not isinstance(argnames, (tuple, list)):
-        #     argnames = [x.strip() for x in argnames.split(",") if x.strip()]
 
         data = MARK_HANDLERS[func.name](args, kwargs)
 
