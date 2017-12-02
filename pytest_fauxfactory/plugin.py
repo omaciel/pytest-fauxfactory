@@ -3,7 +3,7 @@
 pytest's parametrize method."""
 from pytest_fauxfactory.handlers import MARK_HANDLERS
 
-from pytest_fauxfactory.helpers import get_mark_function
+from pytest_fauxfactory.helpers import generate_ids, get_mark_function
 
 
 def pytest_generate_tests(metafunc):
@@ -18,4 +18,8 @@ def pytest_generate_tests(metafunc):
         data = MARK_HANDLERS[func.name](args, kwargs)
 
         if data:
-            metafunc.parametrize(argnames, data)
+            data = [_ for _ in data]
+            metafunc.parametrize(
+                argnames,
+                data,
+                ids=generate_ids(data, func.name))
