@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """FauxFactory specific marks methods."""
-from itertools import chain
+from itertools import chain, cycle
 
 import fauxfactory
 
@@ -27,6 +27,16 @@ def faux_string(items, str_type=None, *args, **kwargs):
     if str_type is None:
         str_type = fauxfactory.gen_choice(STRING_TYPES)
 
+    if not isinstance(str_type, list):
+        str_type = [str_type]
+    str_cycle = cycle(str_type)
+
+    if not isinstance(kwargs.get('length', None), list):
+        kwargs['length'] = [kwargs.get('length', None)]
+    length_cycle = cycle(kwargs['length'])
+
     while item < items:
+        str_type = next(str_cycle)
+        kwargs['length'] = next(length_cycle)
         yield fauxfactory.gen_string(str_type, *args, **kwargs)
         item += 1

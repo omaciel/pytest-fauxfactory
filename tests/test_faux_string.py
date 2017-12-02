@@ -8,6 +8,11 @@ def is_numeric(value):
     return value.isnumeric()
 
 
+def contains_number(value):
+    """Check to see if the string contains a number."""
+    return any(char.isnumeric() for char in value)
+
+
 def test_mark_plain(testdir):
     """Check that mark `faux_string` adds 10 iterations to test."""
     testdir.makepyfile("""
@@ -130,3 +135,18 @@ def test_gen_alpha_string_with_length(value):
 def test_gen_alpha_string_with_validator(value):
     """Call `faux_string` with validator that returns default of `1`."""
     assert value == '1'
+
+
+@pytest.mark.faux_string(4, 'alpha', length=[5, 15])
+def test_gen_alpha_string_with_variable_length(value):
+    """Generate an `alpha` string of length of either 5 or 15."""
+    assert len(value) == 5 or len(value) == 15
+
+
+@pytest.mark.faux_string(4, ['alpha', 'alphanumeric'], length=[5, 30])
+def test_gen_alpha_string_with_variable_types(value):
+    """Generate alpha strings with length 5, alphanumeric with length 30."""
+    if len(value) == 5:
+        assert not contains_number(value)
+    else:
+        assert contains_number(value)
