@@ -40,7 +40,7 @@ package-upload: package
 		twine upload dist/*
 
 test:
-		coverage run --source pytest_fauxfactory -m py.test -v
+		coverage run --source pytest_fauxfactory -m py.test -v -n auto
 
 test-coverage: test
 		coverage report -m
