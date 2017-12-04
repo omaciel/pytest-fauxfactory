@@ -31,10 +31,10 @@ You will then have 4 tests, each with different values:
 
 ::
 
-    test_generate_alpha_strings[EiOKPHSXNYfv] PASSED
-    test_generate_alpha_strings[BBATlPxwmHaP] PASSED
-    test_generate_alpha_strings[kXIGIIXOyZyv] PASSED
-    test_generate_alpha_strings[eqHxEFneSKNC] PASSED
+    test_generate_alpha_strings[faux_string_0] PASSED
+    test_generate_alpha_strings[faux_string_1] PASSED
+    test_generate_alpha_strings[faux_string_2] PASSED
+    test_generate_alpha_strings[faux_string_3] PASSED
 
 
 Now, suppose you also want to make sure that all strings have exactly 43 characters:
@@ -55,6 +55,46 @@ You can also get random types of strings by excluding the second argument:
         assert len(value) > 0
 
 
+Additionally, you can run tests with different string lengths by passing in a list of lengths:
+
+.. code-block:: python
+
+    @pytest.mark.faux_string(4, 'alpha', length=[5, 15])
+    def test_gen_alpha_string_with_variable_length(value):
+        """Generate an `alpha` string of length of either 5 or 15."""
+        assert len(value) == 5 or len(value) == 15
+
+This will generate 4 new tests
+
+::
+
+    tests/test_faux_string.py::test_gen_alpha_string_with_variable_length[faux_string_0] PASSED                                                                                                                                          [ 91%]
+    tests/test_faux_string.py::test_gen_alpha_string_with_variable_length[faux_string_1] PASSED                                                                                                                                [ 92%]
+    tests/test_faux_string.py::test_gen_alpha_string_with_variable_length[faux_string_2] PASSED                                                                                                                                          [ 93%]
+    tests/test_faux_string.py::test_gen_alpha_string_with_variable_length[faux_string_3] PASSED
+
+Similarly, you can run tests with different string types by passing in a list of types:
+
+.. code-block:: python
+
+    @pytest.mark.faux_string(4, ['alpha', 'alphanumeric'], length=[5, 10])
+    def test_gen_alpha_string_with_variable_types(value):
+        """Generate alpha strings with length 5, alphanumeric with length 10."""
+        if len(value) == 5:
+            assert not contains_number(value)
+        else:
+            assert contains_number(value)
+
+This will generate 4 new tests
+
+::
+
+    tests/test_faux_string.py::test_gen_alpha_string_with_variable_types[faux_string_0] PASSED                                                                                                                                           [ 96%]
+    tests/test_faux_string.py::test_gen_alpha_string_with_variable_types[faux_string_1] PASSED                                                                                                                                      [ 97%]
+    tests/test_faux_string.py::test_gen_alpha_string_with_variable_types[faux_string_2] PASSED                                                                                                                                           [ 98%]
+    tests/test_faux_string.py::test_gen_alpha_string_with_variable_types[faux_string_3] PASSED
+
+
 Now imagine that you have a custom function that generates values of any type instead of the default types used in faux_string. For that you can use the "faux_callable" mark:
 
 .. code-block:: python
@@ -72,10 +112,10 @@ This will generate 4 new tests
 
 ::
 
-    tests/test_pytest_fauxfactory.py::test_generate_integers[-40777152258153876] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_integers[9141141773039816881] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_integers[-2876033762618571864] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_integers[2679201549842738042] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_integers[faux_callable_0] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_integers[faux_callable_1] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_integers[faux_callable_2] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_integers[faux_callable_3] PASSED
 
 
 faux_callable can also transfer arguments to the callable function:
@@ -96,10 +136,10 @@ This will generate 4 new tests
 
 ::
 
-    tests/test_pytest_fauxfactory.py::test_generate_integers[99] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_integers[78] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_integers[86] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_integers[68] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_integers[faux_callable_0] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_integers[faux_callable_1] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_integers[faux_callable_2] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_integers[faux_callable_3] PASSED
 
 
 Of course the generated values can be of any type! For example, let's generate values as a tuple of alpha strings:
@@ -129,11 +169,11 @@ This will generate 5 new tests
 
 ::
 
-    tests/test_pytest_fauxfactory.py::test_generate_from_custom_function[value0] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_from_custom_function[value1] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_from_custom_function[value2] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_from_custom_function[value3] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_from_custom_function[value4] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_from_custom_function[faux_callable_0] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_from_custom_function[faux_callable_1] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_from_custom_function[faux_callable_2] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_from_custom_function[faux_callable_3] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_from_custom_function[faux_callable_4] PASSED
 
 
 Let's now generate values from a custom function that returns a dictionary:
@@ -163,9 +203,9 @@ This will generate 5 new tests
 
 ::
 
-    tests/test_pytest_fauxfactory.py::test_generate_person[value0] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_person[value1] PASSED
-    tests/test_pytest_fauxfactory.py::test_generate_person[value2] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_person[faux_callable_0] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_person[faux_callable_1] PASSED
+    tests/test_pytest_fauxfactory.py::test_generate_person[faux_callable_2] PASSED
 
 Now instead of using a callable function, we want to generate tests with values
 of any types from a generator function or generator expression.
@@ -189,9 +229,9 @@ This will generate 3 new tests
 
 ::
 
-    tests/test_pytest_fauxfactory.py::test_generator_alpha_strings[WiEgJZexQiTJ] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_alpha_strings[MsgqwMYgtGLA] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_alpha_strings[nOTGNAeWJkOz] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_alpha_strings[faux_generator_0] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_alpha_strings[faux_generator_1] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_alpha_strings[faux_generator_2] PASSED
 
 We can also use a generator expression:
 
@@ -210,10 +250,10 @@ This will generate 4 tests
 
 ::
 
-    tests/test_pytest_fauxfactory.py::test_generator_expression[7567941589364906197] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_expression[5816026928693750395] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_expression[7144149572714817589] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_expression[5753372709616898246] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_expression[faux_generator_0] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_expression[faux_generator_1] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_expression[faux_generator_2] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_expression[faux_generator_3] PASSED
 
 
 Of course the returned values can be of any type:
@@ -241,8 +281,8 @@ This will generate 2 tests
 
 ::
 
-    tests/test_pytest_fauxfactory.py::test_generator_foo_generator[foo] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_foo_generator[value1] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_foo_generator[faux_generator_0] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_foo_generator[faux_generator_1] PASSED
 
 We can also combine all the above generators:
 
@@ -266,12 +306,12 @@ This will generate 9 tests
 
 ::
 
-    tests/test_pytest_fauxfactory.py::test_generator_combined[uyzwVdwKxPHH] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_combined[kEieggUropBb] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_combined[HwZtYgdEyoyX] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_combined[7347036629722650799] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_combined[4556800111586158449] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_combined[3273311764181187971] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_combined[8196370314569916631] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_combined[foo] PASSED
-    tests/test_pytest_fauxfactory.py::test_generator_combined[value8] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_0] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_1] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_2] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_3] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_4] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_5] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_6] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_7] PASSED
+    tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_8] PASSED
