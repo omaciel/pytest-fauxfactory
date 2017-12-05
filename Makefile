@@ -40,9 +40,10 @@ package-upload: package
 		twine upload dist/*
 
 test:
-		coverage run --source pytest_fauxfactory -m py.test -v -n auto
+		coverage run --parallel-mode -m pytest -s -v test.py
 
 test-coverage: test
+		coverage combine
 		coverage report -m
 
 .PHONY: all docs-clean docs-html install install-dev lint package \
