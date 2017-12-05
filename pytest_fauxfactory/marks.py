@@ -24,16 +24,19 @@ def faux_string(items, str_type=None, *args, **kwargs):
     """Generate a new string type."""
     item = 0
 
-    if str_type is None:
+    if str_type is None or not str_type:
         str_type = fauxfactory.gen_choice(STRING_TYPES)
 
     if not isinstance(str_type, list):
         str_type = [str_type]
     str_cycle = cycle(str_type)
 
-    if not isinstance(kwargs.get('length', None), list):
-        kwargs['length'] = [kwargs.get('length', None)]
-    length_cycle = cycle(kwargs['length'])
+    length = kwargs.get('length', None)
+    if not length:
+        length = [None]
+    if not isinstance(length, list):
+        length = [length]
+    length_cycle = cycle(length)
 
     while item < items:
         str_type = next(str_cycle)
