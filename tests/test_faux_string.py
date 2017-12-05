@@ -149,6 +149,18 @@ def test_gen_alpha_string_with_empty_types(value):
     assert len(value) >= 5
 
 
+@pytest.mark.faux_string(4, ['alpha', 'alphanumeric'], length=[])
+def test_gen_alpha_string_with_empty_length(value):
+    """Generate default alpha strings with length as empty list."""
+    assert len(value) == 10
+
+
+@pytest.mark.faux_string(4, [], length=[])
+def test_gen_alpha_string_with_empty_types_and_length(value):
+    """Generate default alpha strings with types and length as empty lists."""
+    assert len(value) >= 10
+
+
 @pytest.mark.faux_string(4, ['alpha', 'alphanumeric'], length=[5, 30])
 def test_gen_alpha_string_with_variable_types(value):
     """Generate alpha strings with length 5, alphanumeric with length 30."""

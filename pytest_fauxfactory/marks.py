@@ -31,9 +31,12 @@ def faux_string(items, str_type=None, *args, **kwargs):
         str_type = [str_type]
     str_cycle = cycle(str_type)
 
-    if not isinstance(kwargs.get('length', None), list):
-        kwargs['length'] = [kwargs.get('length', None)]
-    length_cycle = cycle(kwargs['length'])
+    length = kwargs.get('length', None)
+    if not length:
+        length = [None]
+    if not isinstance(length, list):
+        length = [length]
+    length_cycle = cycle(length)
 
     while item < items:
         str_type = next(str_cycle)
