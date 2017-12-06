@@ -20,7 +20,7 @@ LONG_DESCRIPTION = (read('README.rst') + '\n\n' +
 
 setup(
     name='pytest-fauxfactory',
-    version='1.1.0',
+    version='1.1.1',
     author='Og Maciel',
     author_email='omaciel@ogmaciel.com',
     description='Integration of fauxfactory into pytest.',
