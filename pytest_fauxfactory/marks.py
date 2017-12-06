@@ -24,7 +24,7 @@ def faux_string(items, str_type=None, *args, **kwargs):
     """Generate a new string type."""
     item = 0
 
-    if str_type is None or not str_type:
+    if not str_type:
         str_type = fauxfactory.gen_choice(STRING_TYPES)
 
     if not isinstance(str_type, list):
