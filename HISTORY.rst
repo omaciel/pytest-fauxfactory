@@ -3,6 +3,11 @@
 Release History
 ===============
 
+1.1.1 (2017-12-06)
+------------------
+
+- Paperbag release to include rst files.
+
 1.1.0 (2017-12-06)
 ------------------
 
