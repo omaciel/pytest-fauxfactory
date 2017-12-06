@@ -1,30 +1,77 @@
 pytest-fauxfactory
 ==================
 
-Now you pass random data to your tests using this **Pytest** plugin for `FauxFactory https://github.com/omaciel/fauxfactory`.
+.. image:: https://img.shields.io/pypi/v/pytest-fauxfactory.svg
+    :target: https://pypi.python.org/pypi/pytest-fauxfactory
 
-The easiest way to use it is to decorate your test with the `faux_string` mark and write a test that expects a `value` argument:
+.. image:: https://img.shields.io/pypi/l/pytest-fauxfactory.svg
+    :target: https://pypi.python.org/pypi/pytest-fauxfactory
+
+.. image:: https://img.shields.io/pypi/pyversions/pytest-fauxfactory.svg
+    :target: https://pypi.python.org/pypi/pytest-fauxfactory
+
+.. image:: https://travis-ci.org/omaciel/pytest-fauxfactory.svg?branch=master
+    :target: https://travis-ci.org/omaciel/pytest-fauxfactory
+
+---------------
+
+**pytest-fauxfactory** is a **Pytest** plugin that helps you pass random data to your automated tests, leveraging the
+power of `FauxFactory https://github.com/omaciel/fauxfactory`.
+
+Features
+--------
+
+pytest-fauxfactory let's you create parameterized automated tests, providing:
+
+- Randomically generated strings via **FauxFactory**
+- Allowing you to provide a `callable` method to return the type and number of data items to be used by your tests
+- Allowing you to provide a `generator` method to return the type and number of data items to be used by your tests
+
+Installation
+------------
+
+::
+
+    $ pip install pytest-fauxfactory
+
+Usage Examples
+--------------
+
+Generating Random Strings: faux_string
+++++++++++++++++++++++++++++++++++++++
+Let's say you need to generate a random string value (identified as **author**) for a test
 
 .. code-block:: python
 
     @pytest.mark.faux_string()
-    def test_generate_alpha_strings(value):
-        assert value
+    def test_generate_alpha_strings(author):
+        assert author
 
-By default a single random string will be generated for your test.
+The allowed types of strings that can be generated are:
+
+- 'alpha'
+- 'alphanumeric'
+- 'cjk'
+- 'html'
+- 'latin1'
+- 'numeric'
+- 'utf8'
+- 'punctuation
+
+Using the `faux_string` mark without any arguments will generate a single random string for your test.
 
 ::
 
-    test_generate_alpha_strings[:<;--{#+,&] PASSED
+    test_generate_alpha_strings[faux_string_0] PASSED
 
 
-Suppose you want to generate **4** random strings (identified as **value**) for a test:
+Suppose you want to generate **4** random **alpha** strings (identified as **book**) for a test:
 
 .. code-block:: python
 
     @pytest.mark.faux_string(4, 'alpha')
-    def test_generate_alpha_strings(value):
-        assert value.isalpha()
+    def test_generate_alpha_strings(book):
+        assert book.isalpha()
 
 
 You will then have 4 tests, each with different values:
@@ -36,7 +83,6 @@ You will then have 4 tests, each with different values:
     test_generate_alpha_strings[faux_string_2] PASSED
     test_generate_alpha_strings[faux_string_3] PASSED
 
-
 Now, suppose you also want to make sure that all strings have exactly 43 characters:
 
 .. code-block:: python
@@ -44,16 +90,6 @@ Now, suppose you also want to make sure that all strings have exactly 43 charact
     @pytest.mark.faux_string(4, 'alpha', length=43)
     def test_generate_alpha_strings(value):
         assert len(value) == 43
-
-
-You can also get random types of strings by excluding the second argument:
-
-.. code-block:: python
-
-    @pytest.mark.faux_string(4)
-    def test_generate_alpha_strings(value):
-        assert len(value) > 0
-
 
 Additionally, you can run tests with different string lengths by passing in a list of lengths:
 
@@ -94,8 +130,10 @@ This will generate 4 new tests
     tests/test_faux_string.py::test_gen_alpha_string_with_variable_types[faux_string_2] PASSED                                                                                                                                           [ 98%]
     tests/test_faux_string.py::test_gen_alpha_string_with_variable_types[faux_string_3] PASSED
 
-
-Now imagine that you have a custom function that generates values of any type instead of the default types used in faux_string. For that you can use the "faux_callable" mark:
+Using Custom Functions: faux_callable
++++++++++++++++++++++++++++++++++++++
+Now imagine that you have a custom function that generates values of any type instead of the default types used by
+`faux_string`. Using `fauxfactory.gen_integer` for example:
 
 .. code-block:: python
 
@@ -207,6 +245,8 @@ This will generate 5 new tests
     tests/test_pytest_fauxfactory.py::test_generate_person[faux_callable_1] PASSED
     tests/test_pytest_fauxfactory.py::test_generate_person[faux_callable_2] PASSED
 
+Using Generators: faux_generator
+++++++++++++++++++++++++++++++++
 Now instead of using a callable function, we want to generate tests with values
 of any types from a generator function or generator expression.
 For this purpose we can use the "faux_generator" mark:
@@ -315,3 +355,8 @@ This will generate 9 tests
     tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_6] PASSED
     tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_7] PASSED
     tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_8] PASSED
+
+Documentation
+-------------
+
+Documentation is in the works but we would love to get help from the community!
