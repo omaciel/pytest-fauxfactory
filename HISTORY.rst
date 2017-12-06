@@ -16,7 +16,7 @@ Release History
 - First release as a Pytest plugin exposing a `gen_string` mark
 - Tests can be decorated with new mark to generate random strings as parameters
 
-1.0.0 (2017-12-06)
+1.0.0 (2015-05-20)
 ------------------
 
 - First release.
