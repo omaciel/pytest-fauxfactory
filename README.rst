@@ -47,8 +47,8 @@ Let's say you need to generate a random string value (identified as **author**) 
 .. code-block:: python
 
     @pytest.mark.faux_string()
-    def test_generate_alpha_strings(author):
-        assert author
+    def test_generate_alpha_strings():
+        assert value
 
 The allowed types of strings that can be generated are:
 
@@ -73,8 +73,8 @@ Suppose you want to generate **4** random **alpha** strings (identified as **boo
 .. code-block:: python
 
     @pytest.mark.faux_string(4, 'alpha')
-    def test_generate_alpha_strings(book):
-        assert book.isalpha()
+    def test_generate_alpha_strings(value):
+        assert value.isalpha()
 
 
 You will then have 4 tests, each with different values:
