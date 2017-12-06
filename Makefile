@@ -37,7 +37,7 @@ package-clean:
 		rm -rf build dist pytest_fauxfactory.egg-info
 
 package-upload: package
-		twine upload dist/*
+		twine upload dist/* --sign
 
 test:
 		coverage run --source pytest_fauxfactory -m py.test -v
