@@ -12,5 +12,6 @@ Development Lead
 Contributors
 ------------
 
-- Djebran Lezzoum `@ldjebran https://github.com/ldjebran`
-- Milan Falešník `@mfalesni https://github.com/mfalesni`
+- Djebran Lezzoum `@ldjebran https://github.com/ldjebran`_
+- Jacob Callahan `@JacobCallahan https://github.com/JacobCallahan`_
+- Milan Falešník `@mfalesni https://github.com/mfalesni`_

@@ -30,12 +30,15 @@ pytest-fauxfactory let's you create parameterized automated tests, providing:
 Installation
 ------------
 
+
 ::
 
     $ pip install pytest-fauxfactory
 
+
 Usage Examples
 --------------
+
 
 Generating Random Strings: faux_string
 ++++++++++++++++++++++++++++++++++++++
@@ -49,14 +52,14 @@ Let's say you need to generate a random string value (identified as **author**) 
 
 The allowed types of strings that can be generated are:
 
-- 'alpha'
-- 'alphanumeric'
-- 'cjk'
-- 'html'
-- 'latin1'
-- 'numeric'
-- 'utf8'
-- 'punctuation
+- alpha
+- alphanumeric
+- cjk
+- html
+- latin1
+- numeric
+- utf8
+- punctuation
 
 Using the `faux_string` mark without any arguments will generate a single random string for your test.
 
@@ -129,6 +132,7 @@ This will generate 4 new tests
     tests/test_faux_string.py::test_gen_alpha_string_with_variable_types[faux_string_1] PASSED                                                                                                                                      [ 97%]
     tests/test_faux_string.py::test_gen_alpha_string_with_variable_types[faux_string_2] PASSED                                                                                                                                           [ 98%]
     tests/test_faux_string.py::test_gen_alpha_string_with_variable_types[faux_string_3] PASSED
+
 
 Using Custom Functions: faux_callable
 +++++++++++++++++++++++++++++++++++++
@@ -245,6 +249,7 @@ This will generate 5 new tests
     tests/test_pytest_fauxfactory.py::test_generate_person[faux_callable_1] PASSED
     tests/test_pytest_fauxfactory.py::test_generate_person[faux_callable_2] PASSED
 
+
 Using Generators: faux_generator
 ++++++++++++++++++++++++++++++++
 Now instead of using a callable function, we want to generate tests with values
@@ -355,6 +360,7 @@ This will generate 9 tests
     tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_6] PASSED
     tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_7] PASSED
     tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_8] PASSED
+
 
 Documentation
 -------------
