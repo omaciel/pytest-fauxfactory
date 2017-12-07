@@ -361,6 +361,47 @@ This will generate 9 tests
     tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_7] PASSED
     tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_8] PASSED
 
+Using the argnames keyword in any of the above decorators, we can customize the arguments used for the test function, to use "name" argument instead of "value":
+
+.. code-block:: python
+
+    @pytest.mark.faux_string(2, 'alpha', argnames='name')
+    def test_gen_alpha_string_with_custom_arg_name(name):
+        """Generate default alpha strings with custom argument."""
+        assert len(name) == 10
+
+This will generate 2 tests
+
+::
+
+    tests/test_faux_string.py::test_gen_alpha_string_with_custom_arg_name[faux_string_0] PASSED                                                                                                                          [ 50%]
+    tests/test_faux_string.py::test_gen_alpha_string_with_custom_arg_name[faux_string_1] PASSED                                                                                                                          [100%]
+
+We can also use multiple custom arguments:
+
+.. code-block:: python
+
+    def generate_person_in_tuple():
+        """Generate a random person record in a tuple (name, age)."""
+        return (
+            fauxfactory.gen_alpha(length=12),
+            fauxfactory.gen_integer(min_value=12, max_value=100)
+        )
+
+
+    @pytest.mark.faux_callable(3, generate_person_in_tuple, argnames='name, age')
+    def test_callable_generate_with_custom_args(name, age):
+        """Test generic function with custom arguments."""
+        assert len(name) == 12
+        assert 12 <= age <= 100
+
+This will generate 3 tests
+
+::
+
+    tests/test_faux_callable.py::test_callable_generate_with_custom_args[faux_callable_0] PASSED
+    tests/test_faux_callable.py::test_callable_generate_with_custom_args[faux_callable_1] PASSED
+    tests/test_faux_callable.py::test_callable_generate_with_custom_args[faux_callable_2] PASSED
 
 Documentation
 -------------

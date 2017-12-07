@@ -220,3 +220,18 @@ def test_callable_generate_person(value):
     assert 'age' in value
     assert len(value['name']) == 12
     assert 12 <= value['age'] <= 100
+
+
+def generate_person_in_tuple():
+    """Generate a random person record in a tuple (name, age)."""
+    return (
+        fauxfactory.gen_alpha(length=12),
+        fauxfactory.gen_integer(min_value=12, max_value=100)
+    )
+
+
+@pytest.mark.faux_callable(3, generate_person_in_tuple, argnames='name, age')
+def test_callable_generate_with_custom_args(name, age):
+    """Test generic function with custom arguments."""
+    assert len(name) == 12
+    assert 12 <= age <= 100

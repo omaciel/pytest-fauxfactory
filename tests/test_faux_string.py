@@ -168,3 +168,9 @@ def test_gen_alpha_string_with_variable_types(value):
         assert not contains_number(value)
     else:
         assert contains_number(value)
+
+
+@pytest.mark.faux_string(2, 'alpha', argnames='name')
+def test_gen_alpha_string_with_custom_arg_name(name):
+    """Generate default alpha strings with custom argument."""
+    assert len(name) == 10
