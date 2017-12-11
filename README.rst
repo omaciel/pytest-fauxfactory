@@ -361,6 +361,9 @@ This will generate 9 tests
     tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_7] PASSED
     tests/test_pytest_fauxfactory.py::test_generator_combined[faux_generator_8] PASSED
 
+Custom test arguments usage
+___________________________
+
 Using the argnames keyword in any of the above decorators, we can customize the arguments used for the test function, to use "name" argument instead of "value":
 
 .. code-block:: python
