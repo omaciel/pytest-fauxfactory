@@ -241,7 +241,7 @@ Let's now generate values from a custom function that returns a dictionary:
         assert len(value['name']) == 12
         assert 12 <= value['age'] <= 100
 
-This will generate 5 new tests
+This will generate 3 new tests
 
 ::
 
@@ -253,7 +253,7 @@ This will generate 5 new tests
 Using Generators: faux_generator
 ++++++++++++++++++++++++++++++++
 Now instead of using a callable function, we want to generate tests with values
-of any types from a generator function or generator expression.
+of any type from a generator function or generator expression.
 For this purpose we can use the "faux_generator" mark:
 
 
