@@ -161,7 +161,7 @@ def test_gen_alpha_string_with_empty_types_and_length(value):
     assert len(value) >= 10
 
 
-@pytest.mark.faux_string(4, ['alpha', 'alphanumeric'], length=[5, 30])
+@pytest.mark.faux_string(4, ['alpha', 'numeric'], length=[5, 30])
 def test_gen_alpha_string_with_variable_types(value):
     """Generate alpha strings with length 5, alphanumeric with length 30."""
     if len(value) == 5:
