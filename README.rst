@@ -47,7 +47,7 @@ Let's say you need to generate a random string value (identified as **author**) 
 .. code-block:: python
 
     @pytest.mark.faux_string()
-    def test_generate_alpha_strings():
+    def test_generate_alpha_strings(value):
         assert value
 
 The allowed types of strings that can be generated are:
